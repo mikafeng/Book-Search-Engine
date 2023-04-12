@@ -16,10 +16,10 @@ const resolvers = {
 
     Mutation: {
         createUser: async (parent, {username, email, password}) => {
-           const username = await User.create({username, email, password});
-           const token = signToken(username);
+           const user = await User.create({username, email, password});
+           const token = signToken(user);
            
-            return User.create({token, username});
+            return User.create({token, user});
         },
         login: async (parent, {email, password}) => {
             const user = await User.findOne({email});
@@ -28,20 +28,30 @@ const resolvers = {
                 throw new AuthenticationError('No user with this email found.');
             }
 
-            const correctPW = await username.isCorrectPassword(password);
+            const correctPW = await user.isCorrectPassword(password);
 
             if(!correctPW) {
                 throw new AuthenticationError('Incorrect password.');
             }
 
-            const token = signToken(username);
-            return {token, username};
+            const token = signToken(user);
+            return {token, user};
         },
-        saveBook: async () => {
 
+        saveBook: async (parent, {userId, book}) => {
+            return User.findOneAndUpdate(
+                {_id: userId},
+                {$addToSet: { savedBooks: book }},
+                {new: true, runValidators:true}
+            );
         },
-        deleteBook: async () => {
 
+        deleteBook: async (parent, {userId, book}) => {
+            return User.findOneAndUpdate(
+                {_id: userId},
+                {$pull: { savedBooks: book}},
+                {new: true}
+            );
         },
 
     },
