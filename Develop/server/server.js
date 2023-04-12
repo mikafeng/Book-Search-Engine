@@ -29,7 +29,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-// app.use(routes);
 
 //new instance of Apollo serverl with GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
@@ -47,6 +46,4 @@ const startApolloServer = async (typeDefs, resolvers) => {
 //call async function to start server
 startApolloServer(typeDefs, resolvers);
 
-// db.once('open', () => {
-//   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-// });
+
