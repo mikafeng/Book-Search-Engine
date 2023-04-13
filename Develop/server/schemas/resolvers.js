@@ -10,7 +10,7 @@ const resolvers = {
                 return User.findOneAndReplace({_id: context.user._id});
             }
             throw new AuthenticationError('You need to be logged in!');
-        },
+        },              
     },
 
 
