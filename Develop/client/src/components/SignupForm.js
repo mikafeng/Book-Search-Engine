@@ -7,7 +7,11 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({ 
+    username: '', 
+    email: '', 
+    password: '' });
+
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -15,7 +19,11 @@ const SignupForm = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
+
+    setUserFormData({ 
+      ...userFormData, 
+      [name]: value 
+    });
   };
 
   const handleFormSubmit = async (event) => {
@@ -29,18 +37,22 @@ const SignupForm = () => {
     }
 
     try {
-
       const {data} = await addUser({
-        variable: {...userFormData},
+        variables: {...userFormData},
       });
 
-      Auth.addUser(data.addUser.token);
+      Auth.login(data.addUser.token);
 
     } catch (e) {
       console.error(e);
       setShowAlert(true);
     }
 
+    setUserFormData({
+      username: '',
+      email: '',
+      password: '',
+    });
   };
 
   return (
