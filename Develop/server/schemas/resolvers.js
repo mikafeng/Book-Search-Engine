@@ -8,7 +8,7 @@ const resolvers = {
         me: async (parent, args, context) => {
             if(context.user) {
                 const userData= await User.findOneAndReplace({_id: context.user._id})
-                    .select('-__v -password')
+                    .select('-__v -password');
             return userData;
             }
             throw new AuthenticationError('You need to be logged in!');
@@ -17,8 +17,8 @@ const resolvers = {
 
 
     Mutation: {
-        addUser: async (parent, {username, email, password}) => {
-           const user = await User.create({username, email, password});
+        addUser: async (parent, args) => {
+           const user = await User.create(args);
            const token = signToken(user);
            
             return {token, user};
@@ -46,18 +46,18 @@ const resolvers = {
             const updatedUser = await User.findOneAndUpdate(
                 {_id: context.user._id},
                 {$addToSet: { savedBooks: input }},
-                {new: true}
+                { new: true, runValidators: true }
             );
-            return updatedUser
+            return updatedUser;
             }
             throw new AuthenticationError('You need to be logged in.')
         },
 
-        deleteBook: async (parent, {user, book}, context) => {
+        deleteBook: async (parent, {bookId}, context) => {
             if (context.user) {
             const updatedUser = await User.findOneAndUpdate(
                 {_id: context.user._id},
-                {$pull: { savedBooks: book._id}},
+                {$pull: { savedBooks: {bookId: bookId}}},
                 {new: true}
                 );
                 return updatedUser;
