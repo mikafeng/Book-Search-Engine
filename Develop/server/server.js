@@ -38,7 +38,3 @@ app.get('/', (req, res) => {
 })
 ;
 
-//call async function to start server
-server(typeDefs, resolvers);
-
-

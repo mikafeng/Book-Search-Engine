@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import {
   Container,
   Card,
@@ -7,9 +8,9 @@ import {
   Col
 } from 'react-bootstrap';
 
+
 import Auth from '../utils/auth';
-import { useQuery, useMutation } from '@apollo/client';
-import {GET_ME} from '../utils/queries'
+import { GET_ME } from '../utils/queries'
 import { DELETE_BOOK } from '../utils/mutations';
 // import { getMe, deleteBook } from '../utils/API';
 

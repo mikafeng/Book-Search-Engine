@@ -10,17 +10,14 @@ export const LOGIN_USER = gql `
                 email
                 bookCount
                 savedBooks {
-                    bookId
                     title
-                    descrition
-                    authors
-                    link
-                    image
+                    description
                 }
             }
         }
     }
 `;
+
 
 export const ADD_USER = gql`
     mutation addUser($username: String! ,$email: String!, $password: String!) {

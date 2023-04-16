@@ -27,10 +27,10 @@ const LoginForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-
+    console.log(userFormData)
     try {
       const {data} = await login({
-        variable: {...userFormData},
+        variables: {...userFormData},
       });
 
       Auth.login(data.login.token);

@@ -21,7 +21,7 @@ const SignupForm = () => {
     const { name, value } = event.target;
 
     setUserFormData({ 
-      ...userFormData, 
+      userFormData, 
       [name]: value 
     });
   };
@@ -38,7 +38,7 @@ const SignupForm = () => {
 
     try {
       const {data} = await addUser({
-        variables: {...userFormData},
+        variables: userFormData,
       });
 
       Auth.login(data.addUser.token);
