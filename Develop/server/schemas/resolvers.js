@@ -8,7 +8,9 @@ const resolvers = {
         me: async (parent, args, context) => {
             if(context.user) {
                 const userData= await User.findOneAndReplace({_id: context.user._id})
-                    .select('-__v -password');
+                    .select('-__v -password')
+                    .populate('savedBooks')
+
             return userData;
             }
             throw new AuthenticationError('You need to be logged in!');
@@ -41,11 +43,11 @@ const resolvers = {
             return {token, user};
         },
 
-        saveBook: async (parent, {input}, context) => {
+        saveBook: async (parent, {bookId, input}, context) => {
             if (context.user) {
             const updatedUser = await User.findOneAndUpdate(
                 {_id: context.user._id},
-                {$push: { savedBooks: newBook}},
+                {$push: { savedBooks: {input}}},
                 { new: true, runValidators: true }
             );
             return updatedUser;

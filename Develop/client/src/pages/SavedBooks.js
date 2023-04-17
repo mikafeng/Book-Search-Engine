@@ -12,13 +12,14 @@ import Auth from '../utils/auth';
 import { GET_ME } from '../utils/queries'
 import { REMOVE_BOOK } from '../utils/mutations';
 // import { getMe, deleteBook } from '../utils/API';
-import { removeBookId, saveBookIds } from '../utils/localStorage';
+import { removeBookId} from '../utils/localStorage';
 
 
 const SavedBooks = () => {
   const {loading, data} = useQuery(GET_ME);
   const userData = data?.me || [];
   const [removeBook] = useMutation(REMOVE_BOOK);
+
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -45,12 +46,11 @@ const SavedBooks = () => {
     return <h2>LOADING...</h2>;
   }
 
-  // const savedBookIds = userData.savedBooks.map((book) => book.bookId);
-  // saveBookIds(savedBookIds);
+
 
   return (
     <>
-      <div fluid className='text-light bg-dark p-5'>
+      <div className='text-light bg-dark p-5'>
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
