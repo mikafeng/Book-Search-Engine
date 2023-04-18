@@ -8,10 +8,10 @@ The application utitlizes GraphQL and Apollo for the backend and create React Ap
 
 ## Technology Used
 
-* GraphQL/Appolo
-* MongoDB
-* Mongoose
-* React Create App
+* (GraphQL/Appolo)[https://www.apollographql.com/]
+* (MongoDB)[https://www.mongodb.com/]
+* (Mongoose)[https://mongoosejs.com/]
+* (React Create App)[https://create-react-app.dev/]
 
 ## In Process Bugs
 
